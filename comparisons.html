@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smartphone Comparisons - PC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Racing+Sans+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header id="main-header">
+        <div class="header-content container-1200">
+            <div class="header-left">
+                <a href="index.html" class="brand">
+                    <span class="brand-desktop"><span class="p-primary">Phones</span><span class="p-secondary">Challenge</span></span>
+                    <span class="brand-mobile"><span class="p-primary">P</span><span class="p-secondary">C</span></span>
+                </a>
+            </div>
+            <div class="header-middle">
+                <div class="search-bar">
+                    <div class="input-wrapper">
+                        <input type="text" placeholder="Search smartphones...">
+                        <button class="clear-btn" aria-label="Clear input">&times;</button>
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
+                <nav class="desktop-nav">
+                    <a href="index.html">Home</a>
+                    <a href="comparisons.html" class="active-link">Comparisons</a>
+                    <a href="#">Deals</a>
+                </nav>
+                <button class="mobile-menu-toggle" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-nav-overlay">
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="comparisons.html" class="active-link">Comparisons</a>
+                <a href="#">Deals</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container-800">
+            <div class="breadcrumbs">
+                <a href="index.html">Home</a> <span>/</span> 
+                Comparisons
+            </div>
+
+            <section class="hero">
+                <h1>Compare Smartphones</h1>
+                <p class="subtitle">Search and compare any two smartphones in our database to see full specification differences, benchmarks, and deals.</p>
+            </section>
+
+            <section class="compare-tool">
+                <h2>Search Phones To Compare</h2>
+                <div class="compare-container">
+                    <div class="compare-inputs">
+                        <div class="input-wrapper">
+                            <input type="text" placeholder="Select first phone...">
+                            <button class="clear-btn" aria-label="Clear input">&times;</button>
+                        </div>
+                        <span class="vs-text">VS</span>
+                        <div class="input-wrapper">
+                            <input type="text" placeholder="Select second phone...">
+                            <button class="clear-btn" aria-label="Clear input">&times;</button>
+                        </div>
+                    </div>
+                    <button class="btn-primary compare-btn">Compare Phones</button>
+                </div>
+            </section>
+
+            <div id="latest-phones-table-container"></div>
+        </div>
+    </main>
+
+    <button id="scroll-to-top" class="scroll-to-top" aria-label="Scroll to top">
+        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+    </button>
+
+    <footer>
+        <div class="footer-top container-1200">
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">FAQs</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Categories</h3>
+                <ul>
+                    <li><a href="#">Flagship Phones</a></li>
+                    <li><a href="#">Budget Phones</a></li>
+                    <li><a href="#">Gaming Phones</a></li>
+                    <li><a href="#">Camera Rankings</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <p>Stay updated with the latest phone releases.</p>
+                <div class="newsletter-input">
+                    <input type="email" placeholder="Email Address">
+                    <button class="btn-secondary">Join</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container-1200">
+                <p>&copy; 2026 PC - All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="latestPhonesStore.js"></script>
+    <script>
+        if (window.initLatestPhonesTable) {
+            window.initLatestPhonesTable('latest-phones-table-container');
+        }
+
+        const header = document.getElementById('main-header');
+
+        const menuBtn = document.querySelector('.mobile-menu-toggle');
+        const overlay = document.querySelector('.mobile-nav-overlay');
+        
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            menuBtn.classList.toggle('active');
+            overlay.classList.toggle('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!header.contains(e.target) && overlay.classList.contains('active')) {
+                menuBtn.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+        });
+
+        document.querySelectorAll('.clear-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const input = e.target.previousElementSibling;
+                input.value = '';
+                input.focus();
+            });
+        });
+
+        // Scroll to top button visibility and action
+        const scrollToTopBtn = document.getElementById('scroll-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
